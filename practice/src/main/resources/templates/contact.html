@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
 	<title>お問い合わせ</title>
@@ -55,7 +56,8 @@
 				<td>建物名</td>
 				<td>
 					<input type="text" th:field="*{buildingName}">
-					<span th:if="${#fields.hasErrors('buildingName')}" th:errors="*{buildingName}" style="color: red"></span>
+					<span th:if="${#fields.hasErrors('buildingName')}" th:errors="*{buildingName}"
+						style="color: red"></span>
 				</td>
 			</tr>
 			<tr>
@@ -66,7 +68,8 @@
 						<option th:value="technicalQuestions">技術的なお問い合わせ</option>
 						<option th:value="others">その他</option>
 					</select>
-					<span th:if="${#fields.hasErrors('contactType')}" th:errors="*{contactType}" style="color: red"></span>
+					<span th:if="${#fields.hasErrors('contactType')}" th:errors="*{contactType}"
+						style="color: red"></span>
 				</td>
 			</tr>
 			<tr>

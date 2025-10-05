@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>【管理者用】お問い合わせ詳細</title>
+</head>
+
+<body>
+	<h1>お問い合わせ詳細</h1>
+	<div th:object="${contact}">
+		<table border="1">
+			<tr>
+				<th>項目</th>
+				<th>内容</th>
+			</tr>
+
+			<tr>
+				<td>お問い合わせID</td>
+				<td th:text="*{id}"></td>
+			</tr>
+			<tr>
+				<td>姓</td>
+				<td th:text="*{lastName}"></td>
+			</tr>
+			<tr>
+				<td>名</td>
+				<td th:text="*{firstName}"></td>
+			</tr>
+			<tr>
+				<td>メールアドレス</td>
+				<td th:text="*{email}"></td>
+			</tr>
+			<tr>
+				<td>電話番号</td>
+				<td th:text="*{phone}"></td>
+			</tr>
+			<tr>
+				<td>郵便番号</td>
+				<td th:text="*{zipCode}"></td>
+			</tr>
+			<tr>
+				<td>住所</td>
+				<td th:text="*{address}"></td>
+			</tr>
+			<tr>
+				<td>建物名</td>
+				<td th:text="*{buildingName}"></td>
+			</tr>
+			<tr>
+				<td>お問い合わせ種別</td>
+				<td th:text="*{contactType}"></td>
+			</tr>
+			<tr>
+				<td>内容</td>
+				<td>
+					<pre th:text="*{body}"></td>
+			</tr>
+			<tr>
+				<td>作成日時</td>
+				<td th:text="${#temporals.format(contact.createdAt, 'yyyy/MM/dd HH:mm')}"></td>
+			</tr>
+			<tr>
+				<td>更新日時</td>
+				<td th:text="${#temporals.format(contact.updatedAt, 'yyyy/MM/dd HH:mm')}"></td>
+			</tr>
+		</table>
+			
+		<div>
+			<a th:href="@{/admin/contacts/{id}/edit(id=*{id})}">編集画面</a>
+			<form th:action="@{/admin/contacts/delete/{id}(id=*{id})}" method="post"
+				style="display: inline;"
+				onsubmit="return confirmDelete('[[*{id}]]');">
+				<button type="submit" style="color:red; border: none; background: none; cursor: pointer;">削除</button>
+			</form>
+		</div>
+	</div>
+			<a th:href="@{/admin/contacts}">一覧に戻る</a>
+			<a th:href="@{/admin/logout}">ログアウト</a>
+</body>
+</html>

@@ -8,24 +8,36 @@
 
 <body>
 	<h1>ログイン画面</h1>
-	<form th:action="signup" method="post">
+
+	<!-- エラー時の表示-->
+	<p th:if="${param.error}" style="color:red;">
+		メールアドレスまたはパスワードが間違っています。
+	</p>
+
+	<p th:if="${param.logout}" style="color:red;">
+		ログアウトしました。
+	</p>
+
+	<form th:action="@{/admin/signin}" th:object="${signinForm}" method="post">
 		<table border="1">
 			<tr>
 				<td>メールアドレス</td>
 				<td>
-					<span th:text="${email}"></span>
+					<input type="email" th:field="*{email}">
+					<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></span>
 				</td>
 			</tr>
 			<tr>
 				<td>パスワード</td>
 				<td>
-					<span th:password="${password}"></span>
+					<input type="password" th:field="*{password}">
+					<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red"></span>
 				</td>
 			</tr>
 		</table>
-		<input type="submit" value="確認">
-		
-		<p>アカウント登録をお持ちでない場合 <a href="signup.html">登録はこちら</a></p>
+		<button type="submit">ログイン</button>
+
+		<p>アカウント登録をお持ちでない場合 <a th:href="@{/admin/signup}">登録はこちら</a></p>
 	</form>
 </body>
 

@@ -24,13 +24,13 @@ public class ContactController {
 	public String contact(Model model) {
 
 		model.addAttribute("contactForm", new ContactForm());
-
 		return "contact";
 	}
 
 	@PostMapping("/contact")
-	public String contact(@Validated @ModelAttribute("contactForm") ContactForm contactForm, BindingResult errorResult, HttpServletRequest request) {
-			
+	public String contact(@Validated @ModelAttribute("contactForm") ContactForm contactForm, BindingResult errorResult,
+			HttpServletRequest request) {
+
 		if (errorResult.hasErrors()) {
 			return "contact";
 		}

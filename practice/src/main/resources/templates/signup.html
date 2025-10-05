@@ -3,12 +3,11 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>【管理者用】アカウント新規登録</title>
+	<title>【管理者用】新規アカウント登録画面</title>
 </head>
 
 <body>
-	<h1>登録内容</h1>
-<!-- th:objectで記述しているsignupFormは、Controllerの@ModelAttribute("signupForm")の一致させる必要あり -->
+	<h1>新規アカウント登録画面</h1>
 	<form th:action="@{/admin/signup}" th:object="${signupForm}" method="post">
 		<table border="1">
 			<tr>
@@ -41,7 +40,9 @@
 			</tr>
 		</table>
 		<button type="submit">確認</button>
-		<a th:href="@{/admin/signup/register}">確認</a>
+
+		<p>アカウント登録をお持ちの場合 <a th:href="@{/admin/signin}">ログインはこちら</a></p>
+
 	</form>
 </body>
 

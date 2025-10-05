@@ -8,5 +8,5 @@ public class SignupData {
 	private String firstName;
 	private String email;
 	private String password;
-	
+
 }
