@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>【管理者用】新規アカウント登録確認画面</title>
+</head>
+
+<body>
+	<h1>新規アカウント登録完了のお知らせ</h1>
+	<form th:action="@{/admin/signin}" method="post">
+		<p>
+			<span th:text="${signupForm.lastName}"></span>
+			<span th:text="${signupForm.firstName}"></span>
+			<span>様</span>
+		</p>
+		<p>
+			<span>新規アカウント登録が完了いたしましたので、下記ログインボタンよりログインしてください。</span>
+		</p>
+		<a th:href="@{/admin/signin}">ログイン画面へ</a>
+
+</body>
+
+</html>

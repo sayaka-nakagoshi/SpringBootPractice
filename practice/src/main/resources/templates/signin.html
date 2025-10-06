@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>【管理者用】ログイン画面</title>
+</head>
+
+<body>
+	<h1>ログイン画面</h1>
+
+	<!-- エラー時の表示-->
+	<p th:if="${param.error}" style="color:red;">
+		メールアドレスまたはパスワードが間違っています。
+	</p>
+
+	<p th:if="${param.logout}" style="color:red;">
+		ログアウトしました。
+	</p>
+
+	<form th:action="@{/admin/signin}" th:object="${signinForm}" method="post">
+		<table border="1">
+			<tr>
+				<td>メールアドレス</td>
+				<td>
+					<input type="email" th:field="*{email}">
+					<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>パスワード</td>
+				<td>
+					<input type="password" th:field="*{password}">
+					<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red"></span>
+				</td>
+			</tr>
+		</table>
+		<button type="submit">ログイン</button>
+
+		<p>アカウント登録をお持ちでない場合 <a th:href="@{/admin/signup}">登録はこちら</a></p>
+	</form>
+</body>
+
+</html>
