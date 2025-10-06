@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>【管理者用】新規アカウント登録確認画面</title>
+</head>
+
+<body>
+	<h1>新規アカウント登録の確認</h1>
+
+	<table border="1">
+		<tr>
+			<td>姓</td>
+			<td>
+				<span th:text="${signupForm.lastName}"></span>
+			</td>
+		</tr>
+		<tr>
+			<td>名</td>
+			<td>
+				<span th:text="${signupForm.firstName}"></span>
+			</td>
+		</tr>
+		<tr>
+			<td>メールアドレス</td>
+			<td>
+				<span th:text="${signupForm.email}"></span>
+			</td>
+		</tr>
+		<tr>
+			<td>パスワード</td>
+			<td>
+				<span th:text="${signupForm.password}"></span>
+			</td>
+		</tr>
+	</table>
+
+	<form th:action="@{/admin/signup}" method="get">
+		<button type="submit">修正</button>
+	</form>
+	<form th:action="@{/admin/signup/register}" th:object="${signupForm}" method="post">
+		<button type="submit">登録</button>
+	</form>
+</body>
+
+</html>

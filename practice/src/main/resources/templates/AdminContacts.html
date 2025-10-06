@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>【管理者用】お問合せ一覧画面</title>
+</head>
+
+<body>
+	<h1>お問合せ一覧画面</h1>
+
+	<table border="1">
+		<thead>
+			<tr>
+				<th>お問い合わせID</th>
+				<th>姓</th>
+				<th>名</th>
+				<th>お問い合わせ種別</th>
+				<th>作成日時</th>
+				<th>更新日時</th>
+				<th>管理者のみ操作可能</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="contact : ${contacts}">
+				<td th:text="${contact.id}"></td>
+				<td th:text="${contact.lastName}"></td>
+				<td th:text="${contact.firstName}"></td>
+				<td th:text="${contact.contactType}"></td>
+				<td th:text="${#temporals.format(contact.createdAt, 'yyyy/MM/dd HH:mm')}"></td>
+				<td th:text="${#temporals.format(contact.updatedAt, 'yyyy/MM/dd HH:mm')}"></td>
+
+				<td>
+					<a th:href="@{/admin/contacts/{id}(id=${contact.id})}">詳細画面</a>
+					<form th:action="@{/admin/contacts/delete/{id}(id=${contact.id})}" method="post"
+						style="display: inline;" onsubmit="return confirmDelete('[[${contact.id}]]');">
+
+						<button type="submit"
+							style="color: red; border: none; background: none; cursor: pointer;">削除</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a th:href="@{/admin/logout}">ログアウト</a>
+</body>
+
+</html>

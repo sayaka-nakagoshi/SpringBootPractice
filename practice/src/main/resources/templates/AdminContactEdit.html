@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>【管理者用】お問い合わせ編集画面</title>
+</head>
+
+<body>
+	<h1>お問い合わせ編集画面</h1>
+
+	<form th:action="@{/admin/contacts/{id}/edit(id=${contact.id})}" th:object="${contact}" method="post">
+		<input type="hidden" th:field="*{id}">
+
+		<table border="1">
+			<tr>
+				<th>項目</th>
+				<th>内容</th>
+			</tr>
+			<tr>
+				<td>お問い合わせID</td>
+				<td th:text="*{id}"></td>
+			</tr>
+			<tr>
+				<td>姓</td>
+				<td><input type="text" th:field="*{lastName}" required /></td>
+			</tr>
+			<tr>
+				<td>名</td>
+				<td><input type="text" th:field="*{firstName}" required /></td>
+			</tr>
+			<tr>
+				<td>メールアドレス</td>
+				<td><input type="text" th:field="*{email}" required /></td>
+			</tr>
+			<tr>
+				<td>電話番号</td>
+				<td><input type="text" th:field="*{phone}" /></td>
+			</tr>
+			<tr>
+				<td>郵便番号</td>
+				<td><input type="text" th:field="*{zipCode}" /></td>
+			</tr>
+			<tr>
+				<td>住所</td>
+				<td><input type="text" th:field="*{address}" required /></td>
+			</tr>
+			<tr>
+				<td>建物名</td>
+				<td><input type="text" th:field="*{buildingName}" required /></td>
+			</tr>
+			<tr>
+				<td>お問い合わせ種別</td>
+				<td><input type="text" th:field="*{contactType}" required /></td>
+			</tr>
+			<tr>
+				<td>内容</td>
+				<td><textarea th:field="*{body}" rows="5" required></textarea></td>
+			</tr>
+		</table>
+
+		<br>
+		<button type="submit">更新</button>
+	</form>
+
+	<hr>
+	<a th:href="@{/admin/contacts/{id}(id=${contact.id})}">詳細画面に戻る</a>
+	<a th:href="@{/admin/contacts}">一覧に戻る</a>
+
+</body>
+
+</html>
