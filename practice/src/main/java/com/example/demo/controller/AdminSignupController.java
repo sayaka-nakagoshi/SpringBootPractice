@@ -33,7 +33,7 @@ public class AdminSignupController {
 		return "signup";
 	}
 
-	///admin/signup　のフォームを送信
+	//admin/signup　のフォームを送信
 	@PostMapping("/admin/signup")
 	public String processSignup(@Validated @ModelAttribute("signupForm") SignupForm signupForm,
 			BindingResult errorResult, HttpServletRequest request) {
@@ -44,7 +44,6 @@ public class AdminSignupController {
 		HttpSession session = request.getSession();
 		session.setAttribute("signupForm", signupForm);
 
-		System.out.println("signupFormの詳細" + signupForm);
 		return "redirect:/admin/signup/register";
 	}
 
@@ -105,9 +104,8 @@ public class AdminSignupController {
 		HttpSession session = request.getSession();
 		session.setAttribute("signupForm", signinForm);
 
-		//		signupService.saveSignup(signupForm);
-
 		System.out.println("signupFormの詳細" + signinForm);
+		
 		return "redirect:/admin/contacts";
 	}
 }
