@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.entity.Contact;
-import com.example.demo.repository.ContactRepository;
+import com.example.demo.service.AdminContactService;
 
 @Controller
-public class AdminContactsController {
+public class AdminContactController {
 	
 	@Autowired
-	private ContactRepository contactRepository;
+	private AdminContactService adminContactService;
 	
 	@GetMapping("/admin/contacts")
 	public String showContacts(Model model) {
-		List<Contact> contacts = contactRepository.findAll();
+		List<Contact> contacts = adminContactService.findAllContacts();
 
 		model.addAttribute("contacts", contacts);
 
@@ -31,7 +31,7 @@ public class AdminContactsController {
 	@GetMapping("/admin/contacts/{id}")
 	public String showContactsDetail(@PathVariable("id") Long id, Model model) {
 		
-		Optional<Contact> contactOptional = contactRepository.findById(id);
+		Optional<Contact> contactOptional = adminContactService.findContactById(id);
 		
 		if(contactOptional.isPresent()) {
 			model.addAttribute("contact", contactOptional.get());
@@ -46,7 +46,7 @@ public class AdminContactsController {
 	@PostMapping("/admin/contacts/delete/{id}")
 	public String deleteContact(@PathVariable("id") Long id) {
 		
-		contactRepository.deleteById(id);
+		adminContactService.deleteContact(id);
 		
 		return "redirect:/admin/contacts";
 	}
@@ -54,7 +54,7 @@ public class AdminContactsController {
 	@GetMapping("/admin/contacts/{id}/edit")
 	public String showEditForm(@PathVariable("id") Long id, Model model) {
 		
-		Optional<Contact> contactOptional = contactRepository.findById(id);
+		Optional<Contact> contactOptional = adminContactService.findContactById(id);
 		
 		if (contactOptional.isPresent()) {
 			Contact contact = contactOptional.get();
@@ -72,23 +72,10 @@ public class AdminContactsController {
 //編集画面で内容変更
 	@PostMapping("/admin/contacts/{id}/edit")
 	public String updateContact(@PathVariable("id") Long id, Contact formContact) {
-	
-		Optional<Contact> existingContactOpt = contactRepository.findById(id);
 		
-		if (existingContactOpt.isPresent()) {
-			Contact existingContact = existingContactOpt.get();
-			
-			existingContact.setLastName(formContact.getLastName());
-			existingContact.setFirstName(formContact.getFirstName());
-			existingContact.setEmail(formContact.getEmail());
-			existingContact.setPhone(formContact.getPhone());
-			existingContact.setZipCode(formContact.getZipCode());
-			existingContact.setAddress(formContact.getAddress());
-			existingContact.setBuildingName(formContact.getBuildingName());
-			existingContact.setContactType(formContact.getContactType());
-			existingContact.setBody(formContact.getBody());
-			
-			contactRepository.save(existingContact);
+		Contact updatedContact = adminContactService.updateContact(id, formContact);
+		
+		if (updatedContact != null) {
 			
 			return "redirect:/admin/contacts/" + id;
 			
@@ -98,5 +85,4 @@ public class AdminContactsController {
 				return "redirect:/admin/contacts";
 			}
 		}
-
 	}

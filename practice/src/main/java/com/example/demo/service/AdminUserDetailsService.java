@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.AdminRepository;
 
+//セキュリティ認証をするため、ユーザー情報と権限を設定する
 @Service
 public class AdminUserDetailsService implements UserDetailsService {
 

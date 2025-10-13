@@ -47,6 +47,7 @@ public class ContactController {
 
 		ContactForm contactForm = (ContactForm) session.getAttribute("contactForm");
 		model.addAttribute("contactForm", contactForm);
+		
 		return "confirmation";
 	}
 
