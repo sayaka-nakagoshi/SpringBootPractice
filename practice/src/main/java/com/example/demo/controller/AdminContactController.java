@@ -15,10 +15,10 @@ import com.example.demo.service.AdminContactService;
 
 @Controller
 public class AdminContactController {
-	
+
 	@Autowired
 	private AdminContactService adminContactService;
-	
+
 	@GetMapping("/admin/contacts")
 	public String showContacts(Model model) {
 		List<Contact> contacts = adminContactService.findAllContacts();
@@ -27,62 +27,65 @@ public class AdminContactController {
 
 		return "AdminContacts";
 	}
-//詳細画面を開く
+
+	//詳細画面を開く
 	@GetMapping("/admin/contacts/{id}")
 	public String showContactsDetail(@PathVariable("id") Long id, Model model) {
-		
+
 		Optional<Contact> contactOptional = adminContactService.findContactById(id);
-		
-		if(contactOptional.isPresent()) {
+
+		if (contactOptional.isPresent()) {
 			model.addAttribute("contact", contactOptional.get());
 			return "AdminContactDetail";
 		}
-		
+
 		else {
 			return "redirect:/admin/contacts";
 		}
 	}
-//お問い合わせ削除処理
+
+	//お問い合わせ削除処理
 	@PostMapping("/admin/contacts/delete/{id}")
 	public String deleteContact(@PathVariable("id") Long id) {
-		
+
 		adminContactService.deleteContact(id);
-		
+
 		return "redirect:/admin/contacts";
 	}
-//編集画面を表示
+
+	//編集画面を表示
 	@GetMapping("/admin/contacts/{id}/edit")
 	public String showEditForm(@PathVariable("id") Long id, Model model) {
-		
+
 		Optional<Contact> contactOptional = adminContactService.findContactById(id);
-		
+
 		if (contactOptional.isPresent()) {
 			Contact contact = contactOptional.get();
-			
+
 			model.addAttribute("contact", contact);
-			
+
 			return "AdminContactEdit";
-			}
+		}
 
-			else {
-				return "redirect:/admin/contacts";
-			}
-	}
-
-//編集画面で内容変更
-	@PostMapping("/admin/contacts/{id}/edit")
-	public String updateContact(@PathVariable("id") Long id, Contact formContact) {
-		
-		Contact updatedContact = adminContactService.updateContact(id, formContact);
-		
-		if (updatedContact != null) {
-			
-			return "redirect:/admin/contacts/" + id;
-			
-			}
-			
-			else {
-				return "redirect:/admin/contacts";
-			}
+		else {
+			return "redirect:/admin/contacts";
 		}
 	}
+
+	//編集画面で内容変更
+	@PostMapping("/admin/contacts/{id}/edit")
+	public String updateContact(@PathVariable("id") Long id, Contact formContact) {
+
+		Contact updatedContact = adminContactService.updateContact(id, formContact);
+
+		if (updatedContact != null) {
+
+			return "redirect:/admin/contacts/" + id;
+
+		}
+
+		else {
+			return "redirect:/admin/contacts";
+		}
+	}
+}

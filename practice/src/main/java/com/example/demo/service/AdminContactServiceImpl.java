@@ -14,34 +14,34 @@ public class AdminContactServiceImpl implements AdminContactService {
 
 	@Autowired
 	private ContactRepository contactRepository;
-	
+
 	@Override
 	public List<Contact> findAllContacts() {
 		return contactRepository.findAll();
 	}
-	
+
 	@Override
 	public Optional<Contact> findContactById(Long id) {
 		return contactRepository.findById(id);
 	}
-	
+
 	@Override
 	public void deleteContact(Long id) {
 		contactRepository.deleteById(id);
 	}
-	
+
 	@Override
 	public Contact saveContact(Contact contact) {
 		return contactRepository.save(contact);
 	}
-	
+
 	@Override
-	public Contact updateContact(Long id,Contact formContact) {
+	public Contact updateContact(Long id, Contact formContact) {
 		Optional<Contact> existingContactOpt = contactRepository.findById(id);
-		
-		if(existingContactOpt.isPresent()) {
+
+		if (existingContactOpt.isPresent()) {
 			Contact existingContact = existingContactOpt.get();
-			
+
 			existingContact.setLastName(formContact.getLastName());
 			existingContact.setFirstName(formContact.getFirstName());
 			existingContact.setEmail(formContact.getEmail());
@@ -51,7 +51,7 @@ public class AdminContactServiceImpl implements AdminContactService {
 			existingContact.setBuildingName(formContact.getBuildingName());
 			existingContact.setContactType(formContact.getContactType());
 			existingContact.setBody(formContact.getBody());
-			
+
 			return contactRepository.save(existingContact);
 		}
 		return null;

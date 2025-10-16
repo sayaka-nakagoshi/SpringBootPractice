@@ -7,12 +7,12 @@ import com.example.demo.entity.Contact;
 
 public interface AdminContactService {
 	List<Contact> findAllContacts();
-	
+
 	Optional<Contact> findContactById(Long id);
-	
+
 	void deleteContact(Long id);
-	
+
 	Contact saveContact(Contact contact);
-	
-	Contact updateContact(Long id,Contact formContact);
+
+	Contact updateContact(Long id, Contact formContact);
 }

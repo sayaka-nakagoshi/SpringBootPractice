@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.form.SigninForm;
 import com.example.demo.form.SignupForm;
 import com.example.demo.service.SignupService;
 
@@ -41,6 +40,12 @@ public class AdminSignupController {
 			System.out.println("失敗");
 			return "signup";
 		}
+
+		if (signupService.isEmailRegisteredError(signupForm.getEmail())) {
+			System.out.println("メールアドレス重複エラー");
+			return "redirect:/admin/signup?error=duplicate";
+		}
+
 		HttpSession session = request.getSession();
 		session.setAttribute("signupForm", signupForm);
 
@@ -90,24 +95,8 @@ public class AdminSignupController {
 	//ログイン画面
 	@GetMapping("/admin/signin")
 	public String showSignin(Model model) {
-		model.addAttribute("signinForm", new SigninForm());
+
 		return "signin";
 	}
 
-	@PostMapping("/admin/signin")
-	public String handleSignin(@Validated @ModelAttribute("signinForm") SigninForm signinForm,
-			BindingResult errorResult, HttpServletRequest request) {
-		if (errorResult.hasErrors()) {
-			System.out.println("singin失敗");
-			return "redirect:/admin/signin";
-		}
-
-		HttpSession session = request.getSession();
-		session.setAttribute("signupForm", signinForm);
-
-		//		signupService.saveSignup(signupForm);
-
-		System.out.println("signupFormの詳細" + signinForm);
-		return "redirect:/admin/contacts";
-	}
 }

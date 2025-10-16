@@ -8,6 +8,14 @@
 
 <body>
 	<h1>新規アカウント登録画面</h1>
+
+	<!-- エラー時の表示-->
+	<p th:if="${#lists.contains(param.error ?: {}, 'duplicate')}" style="color:red;">
+		<span>
+			このメールアドレスは既に登録されています。
+		</span>
+	</p>
+
 	<form th:action="@{/admin/signup}" th:object="${signupForm}" method="post">
 		<table border="1">
 			<tr>

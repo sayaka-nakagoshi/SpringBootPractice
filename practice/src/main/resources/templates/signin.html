@@ -18,20 +18,20 @@
 		ログアウトしました。
 	</p>
 
-	<form th:action="@{/admin/signin}" th:object="${signinForm}" method="post">
+	<form th:action="@{/admin/signin}" method="post">
 		<table border="1">
 			<tr>
 				<td>メールアドレス</td>
 				<td>
-					<input type="email" th:field="*{email}">
-					<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></span>
+					<input type="email" name="*{email}">
+					<span if="${#fields.hasErrors('email')}" errors="*{email}" style="color:red"></span>
 				</td>
 			</tr>
 			<tr>
 				<td>パスワード</td>
 				<td>
-					<input type="password" th:field="*{password}">
-					<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red"></span>
+					<input type="password" name="*{password}">
+					<span if="${#fields.hasErrors('password')}" errors="*{password}" style="color:red"></span>
 				</td>
 			</tr>
 		</table>
