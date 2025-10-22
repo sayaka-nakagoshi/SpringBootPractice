@@ -10,12 +10,12 @@ import com.example.demo.repository.ContactRepository;
 @Service
 public class ContactServiceImpl implements ContactService {
 	@Autowired
-		private ContactRepository contactRepository;	
-	
+	private ContactRepository contactRepository;
+
 	@Override
 	public void saveContact(ContactForm contactForm) {
 		Contact contact = new Contact();
-		
+
 		contact.setLastName(contactForm.getLastName());
 		contact.setFirstName(contactForm.getFirstName());
 		contact.setEmail(contactForm.getEmail());
@@ -25,8 +25,7 @@ public class ContactServiceImpl implements ContactService {
 		contact.setBuildingName(contactForm.getBuildingName());
 		contact.setContactType(contactForm.getContactType());
 		contact.setBody(contactForm.getBody());
-		
+
 		contactRepository.save(contact);
 	}
 }
-

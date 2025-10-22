@@ -22,14 +22,15 @@ public class ContactController {
 
 	@GetMapping("/contact")
 	public String contact(Model model) {
-		model.addAttribute("contactForm", new ContactForm());
 
+		model.addAttribute("contactForm", new ContactForm());
 		return "contact";
 	}
 
 	@PostMapping("/contact")
-	public String contact(@Validated @ModelAttribute("contactForm") ContactForm contactForm, BindingResult errorResult, HttpServletRequest request) {
-			
+	public String contact(@Validated @ModelAttribute("contactForm") ContactForm contactForm, BindingResult errorResult,
+			HttpServletRequest request) {
+
 		if (errorResult.hasErrors()) {
 			return "contact";
 		}
@@ -46,6 +47,7 @@ public class ContactController {
 
 		ContactForm contactForm = (ContactForm) session.getAttribute("contactForm");
 		model.addAttribute("contactForm", contactForm);
+
 		return "confirmation";
 	}
 
