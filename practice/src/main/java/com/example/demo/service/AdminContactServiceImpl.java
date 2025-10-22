@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Contact;
+import com.example.demo.form.AdminContactForm;
 import com.example.demo.repository.ContactRepository;
 
 @Service
@@ -31,26 +32,42 @@ public class AdminContactServiceImpl implements AdminContactService {
 	}
 
 	@Override
-	public Contact saveContact(Contact contact) {
-		return contactRepository.save(contact);
+	public AdminContactForm createForm(Contact contact) {
+		if (contact == null) {
+			return null;
+		}
+
+		AdminContactForm form = new AdminContactForm();
+		form.setId(contact.getId());
+		form.setLastName(contact.getLastName());
+		form.setFirstName(contact.getFirstName());
+		form.setEmail(contact.getEmail());
+		form.setPhone(contact.getPhone());
+		form.setZipCode(contact.getZipCode());
+		form.setAddress(contact.getAddress());
+		form.setBuildingName(contact.getBuildingName());
+		form.setContactType(contact.getContactType());
+		form.setBody(contact.getBody());
+
+		return form;
 	}
 
 	@Override
-	public Contact updateContact(Long id, Contact formContact) {
+	public Contact updateContact(Long id, AdminContactForm adminContactForm) {
 		Optional<Contact> existingContactOpt = contactRepository.findById(id);
 
 		if (existingContactOpt.isPresent()) {
 			Contact existingContact = existingContactOpt.get();
 
-			existingContact.setLastName(formContact.getLastName());
-			existingContact.setFirstName(formContact.getFirstName());
-			existingContact.setEmail(formContact.getEmail());
-			existingContact.setPhone(formContact.getPhone());
-			existingContact.setZipCode(formContact.getZipCode());
-			existingContact.setAddress(formContact.getAddress());
-			existingContact.setBuildingName(formContact.getBuildingName());
-			existingContact.setContactType(formContact.getContactType());
-			existingContact.setBody(formContact.getBody());
+			existingContact.setLastName(adminContactForm.getLastName());
+			existingContact.setFirstName(adminContactForm.getFirstName());
+			existingContact.setEmail(adminContactForm.getEmail());
+			existingContact.setPhone(adminContactForm.getPhone());
+			existingContact.setZipCode(adminContactForm.getZipCode());
+			existingContact.setAddress(adminContactForm.getAddress());
+			existingContact.setBuildingName(adminContactForm.getBuildingName());
+			existingContact.setContactType(adminContactForm.getContactType());
+			existingContact.setBody(adminContactForm.getBody());
 
 			return contactRepository.save(existingContact);
 		}

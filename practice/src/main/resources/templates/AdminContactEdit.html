@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html>
 
 <head>
 	<meta charset="UTF-8">
@@ -10,7 +9,9 @@
 <body>
 	<h1>お問い合わせ編集画面</h1>
 
-	<form th:action="@{/admin/contacts/{id}/edit(id=${contact.id})}" th:object="${contact}" method="post">
+	<form th:action="@{/admin/contacts/{id}/edit(id=${adminContactForm.id})}" th:object="${adminContactForm}"
+		method="post">
+
 		<input type="hidden" th:field="*{id}">
 
 		<table border="1">
@@ -24,39 +25,68 @@
 			</tr>
 			<tr>
 				<td>姓</td>
-				<td><input type="text" th:field="*{lastName}" required /></td>
+				<td>
+					<input type="text" th:field="*{lastName}" />
+					<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color: red"></span>
+				</td>
 			</tr>
 			<tr>
 				<td>名</td>
-				<td><input type="text" th:field="*{firstName}" required /></td>
+				<td>
+					<input type="text" th:field="*{firstName}" />
+					<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color: red"></span>
+				</td>
 			</tr>
 			<tr>
 				<td>メールアドレス</td>
-				<td><input type="text" th:field="*{email}" required /></td>
+				<td>
+					<input type="text" th:field="*{email}" />
+					<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></span>
+				</td>
 			</tr>
 			<tr>
 				<td>電話番号</td>
-				<td><input type="text" th:field="*{phone}" /></td>
+				<td>
+					<input type="text" th:field="*{phone}" />
+					<span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color: red"></span>
+				</td>
 			</tr>
 			<tr>
 				<td>郵便番号</td>
-				<td><input type="text" th:field="*{zipCode}" /></td>
+				<td>
+					<input type="text" th:field="*{zipCode}" />
+					<span th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}" style="color: red"></span>
+				</td>
 			</tr>
 			<tr>
 				<td>住所</td>
-				<td><input type="text" th:field="*{address}" required /></td>
+				<td>
+					<input type="text" th:field="*{address}" />
+					<span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color: red"></span>
+				</td>
 			</tr>
 			<tr>
 				<td>建物名</td>
-				<td><input type="text" th:field="*{buildingName}" required /></td>
+				<td>
+					<input type="text" th:field="*{buildingName}" />
+					<span th:if="${#fields.hasErrors('buildingName')}" th:errors="*{buildingName}"
+						style="color: red"></span>
+				</td>
 			</tr>
 			<tr>
 				<td>お問い合わせ種別</td>
-				<td><input type="text" th:field="*{contactType}" required /></td>
+				<td>
+					<input type="text" th:field="*{contactType}" />
+					<span th:if="${#fields.hasErrors('contactType')}" th:errors="*{contactType}"
+						style="color: red"></span>
+				</td>
 			</tr>
 			<tr>
 				<td>内容</td>
-				<td><textarea th:field="*{body}" rows="5" required></textarea></td>
+				<td>
+					<textarea th:field="*{body}" rows="5"></textarea>
+					<span th:if="${#fields.hasErrors('body')}" th:errors="*{body}" style="color: red"></span>
+				</td>
 			</tr>
 		</table>
 
@@ -65,7 +95,7 @@
 	</form>
 
 	<hr>
-	<a th:href="@{/admin/contacts/{id}(id=${contact.id})}">詳細画面に戻る</a>
+	<a th:href="@{/admin/contacts/{id}(id=${adminContactForm.id})}">詳細画面に戻る</a>
 	<a th:href="@{/admin/contacts}">一覧に戻る</a>
 
 </body>

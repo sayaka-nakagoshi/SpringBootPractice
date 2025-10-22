@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.entity.Contact;
+import com.example.demo.form.AdminContactForm;
 
 public interface AdminContactService {
 	List<Contact> findAllContacts();
@@ -12,7 +13,7 @@ public interface AdminContactService {
 
 	void deleteContact(Long id);
 
-	Contact saveContact(Contact contact);
+	Contact updateContact(Long id, AdminContactForm adminContactForm);
 
-	Contact updateContact(Long id, Contact formContact);
+	AdminContactForm createForm(Contact contact);
 }
